@@ -1,5 +1,7 @@
 package examples;
 
+import java.util.Scanner;
+
 public class AvlTree {
 	public class Node {			//Node라는 구조체
 		private int data;
@@ -42,89 +44,85 @@ public class AvlTree {
 		root = null;
 	}
 	
+	public void Menu() {
+		System.out.println("\n=======================================================================");
+		System.out.print("1. INSERT\t");
+		System.out.print("2. DELETE\t");
+		System.out.print("3. SEARCH\t");
+		System.out.print("4. PRINT TREE\t");
+		System.out.println("5. QUIT");
+		System.out.println("=======================================================================");
+		System.out.print("Choose the action : ");
+	}
 	
 	public static void main(String[] args) {
 		AvlTree avl = new AvlTree();
+		Scanner sc = new Scanner(System.in);
 		
-//		avl.root = avl.insert(avl.root, 4);
-//		avl.root = avl.insert(avl.root, 10);
-//		avl.root = avl.insert(avl.root, 15);
+		int data = 0;
+		boolean result = false;
+		boolean flag = true;
 		
-//		System.out.println("루트노드 : " + avl.root.getData());
-//		System.out.println("왼쪽 : " + avl.root.getLeft().getData());
-//		System.out.println("오른쪽 : " + avl.root.getRight().getData() + "\n");	
+		while(flag) {		//반복
+			avl.Menu();		//메뉴 출력
+			int choice = sc.nextInt();
+			
+			switch(choice) {	//선택에 따른 함수 호출
+			case 1:			//삽입
+				System.out.println("Data that already exists will not be inserted.");
+				System.out.print("Data to insert(int) : ");
+				data = sc.nextInt();	//삽입할 데이터
+				
+				avl.root = avl.insert(avl.root, data);
+				
+				break;
+			case 2:			//삭제
+				System.out.print("Data to delete(int) : ");
+				data = sc.nextInt();	//삭제할 데이터
+				
+				result = avl.delete(data);	//삭제 진행 후 결과
+				if(result)				//result == true
+					System.out.println("   " + data + " has deleted.");
+				else					//result == false
+					System.out.println("   No such data.");
+				
+				break;
+			case 3:			//탐색
+				System.out.print("Data to search(int) : ");
+				data = sc.nextInt();	//탐색할 데이터
+				
+				result = avl.search(data);	//탐색 진행 후 결과
+				if(result)				//result == true
+					System.out.println("   " + data + " is in the tree.");
+				else					//result == false
+					System.out.println("   No such data.");
+				
+				break;
+			case 4:			//출력
+				System.out.println("1. inorder\t2. preorder\t3.postorder");
+				System.out.print("Choose the way to print : ");
+				int choice2 = sc.nextInt();	//출력 방식 선택
+				
+				if(choice2 == 1)		//inorder
+					avl.inorderTraverse(avl.root);
+				else if(choice2 == 2)	//preorder
+					avl.preorderTraverse(avl.root);
+				else if(choice2 == 3)	//postorder
+					avl.postorderTraverse(avl.root);
+				else					//1,2,3 이외의 선택
+					System.out.println("   Wrong choice. Choose from 1~3.");
+				
+				System.out.println();
+				break;
+			case 5:			//프로그램 종료
+				flag = false;
+				break;
+			default :		//1,2,3,4,5 이외의 선택
+				System.out.println("   Wrong choice. Choose from 1~5.");
+			}
+		}
 		
-		
-		Node currentL;
-		Node currentR;
-
-		//삽입확인
-//		System.out.println("insert1");
-//		avl.root = avl.insert(avl.root, 1);
-//		System.out.println("루트노드 : " + avl.root.getData());
-//		System.out.println("왼쪽 : " + avl.root.getLeft() + ", 오른쪽 : " + avl.root.getRight() + "\n");
-//		
-//		System.out.println("insert2");
-//		avl.root = avl.insert(avl.root, 2);
-//		currentR = avl.root.getRight();
-//		System.out.println("루트노드 : " + avl.root.getData());
-//		System.out.println("왼쪽 : " + avl.root.getLeft() + ", 오른쪽 : " + avl.root.getData() + "\n");		
-//		
-//		System.out.println("insert3");
-//		avl.root = avl.insert(avl.root, 3);
-//		currentL = avl.root.getLeft();
-//		currentR = avl.root.getRight();
-//		System.out.println("루트노드 : " + avl.root.getData());
-//		System.out.println("왼쪽 : " + currentL.getData() + ", 오른쪽 : " + currentR.getData() + "\n");
-//		
-//		System.out.println("insert4");
-//		avl.root = avl.insert(avl.root, 4);
-//		currentL = avl.root.getLeft();
-//		currentR = avl.root.getRight();
-//		System.out.println("루트노드 : " + avl.root.getData());
-//		System.out.println("왼쪽 : " + currentL.getData() + ", 오른쪽 : " + currentR.getData() + "\n");
-//		
-//		System.out.println("insert5");
-//		avl.root = avl.insert(avl.root, 5);
-//		currentL = avl.root.getLeft();
-//		currentR = avl.root.getRight();
-//		System.out.println("루트노드 : " + avl.root.getData());
-//		System.out.println("왼쪽 : " + currentL.getData() + ", 오른쪽 : " + currentR.getData() + "\n");
-//		
-//		System.out.println("insert6");
-//		avl.root = avl.insert(avl.root, 6);
-//		currentL = avl.root.getLeft();
-//		currentR = avl.root.getRight();
-//		System.out.println("루트노드 : " + avl.root.getData());
-//		System.out.println("왼쪽 : " + currentL.getData() + ", 오른쪽 : " + currentR.getData() + "\n");
-		
-		//삭제 확인
-		avl.root = avl.insert(avl.root, 1);
-		avl.root = avl.insert(avl.root, 2);
-		avl.root = avl.insert(avl.root, 3);
-		avl.root = avl.insert(avl.root, 4);
-		avl.root = avl.insert(avl.root, 5);
-		avl.root = avl.insert(avl.root, 6);
-		avl.root = avl.insert(avl.root, 7);
-		avl.root = avl.insert(avl.root, 8);
-		avl.root = avl.insert(avl.root, 9);
-		
-		currentL = avl.root.getLeft();
-		currentR = avl.root.getRight();
-		
-		System.out.println("6 삭제 전");
-		System.out.println("루트노드 : " + avl.root.getData());
-		System.out.println("왼쪽 : " + currentL.getData() + ", 오른쪽 : " + currentR.getData() + "\n");
-		
-		System.out.println("6 삭제 후");
-		avl.delete(6);
-		currentL = avl.root.getLeft();
-		currentR = avl.root.getRight();
-		System.out.println("루트노드 : " + avl.root.getData());
-		System.out.println("왼쪽 : " + currentL.getData() + ", 오른쪽 : " + currentR.getData() + "\n");
-		
-		System.out.print("중위순회 : ");
-		avl.inorderTraverse(avl.root);
+		System.out.println("\n===FINISH PROGRAM===");
 	}
 	
 	
@@ -140,7 +138,7 @@ public class AvlTree {
 			node.setRight(insert(node.getRight(), data));
 			node = rebalance(node);
 		}
-		
+
 		//이미 있는 데이터인 경우 아무 작업도 일어나지 않는다.
 		return node;
 	}
@@ -240,7 +238,7 @@ public class AvlTree {
 		Node repParent = null;
 		Node current = deleteNode.getRight();
 		
-		while(current != null) {		//왼쪽 서브트리의 마지막 노드가 가장 작은 값
+		while(current != null) {			//왼쪽 서브트리의 마지막 노드가 가장 작은 값
 			repParent = replacement;
 			replacement = current;
 			current = current.getLeft();	//다음 왼쪽 서브트리로 내려간다
@@ -302,7 +300,7 @@ public class AvlTree {
 		int leftHeight = getHeight(node.getLeft());		//왼쪽서브트리 높이 계산
 		int rightHeight = getHeight(node.getRight());	//오른쪽서브트리 높이 계산
 		
-		return leftHeight - rightHeight;		//왼쪽이 더 깊으면 +, 오른쪽이 더 깊으면 -
+		return leftHeight - rightHeight;	//왼쪽이 더 깊으면 +, 오른쪽이 더 깊으면 -
 	}
 	
 	public int getHeight(Node node) {		//트리의 최대 높이 구하는 함수
@@ -345,7 +343,7 @@ public class AvlTree {
 		Node child = parent.getLeft();
 		
 		parent.setLeft(rotateRR(child));	//먼저 child를 RR회전하고, parent의 왼쪽에 연결
-		return rotateLL(parent);				//child를 LL회전하고, 새로운 root를 반환
+		return rotateLL(parent);			//child를 LL회전하고, 새로운 root를 반환
 	}
 	
 	public Node rotateRL(Node node) {		//부분적 LL회전 후, RR회전
@@ -353,12 +351,12 @@ public class AvlTree {
 		Node child = parent.getRight();
 		
 		parent.setRight(rotateLL(child));	//먼저 child를 LL회전하고, parent의 오른쪽에 연결
-		return rotateRR(parent);				//child를 RR회전하고, 새로운 root를 반환
+		return rotateRR(parent);			//child를 RR회전하고, 새로운 root를 반환
 	}
 	
 	
 	//출력
-	public void inorderTraverse(Node node) {		//오름차순으로 출력 가능
+	public void inorderTraverse(Node node) {	//오름차순으로 출력 가능
 		if(node == null)
 			return;
 		

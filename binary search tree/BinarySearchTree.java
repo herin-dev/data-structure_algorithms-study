@@ -1,5 +1,7 @@
 package examples;
 
+import java.util.Scanner;
+
 //리스트로 구현
 
 public class BinarySearchTree {
@@ -44,46 +46,85 @@ public class BinarySearchTree {
 		this.root = null;
 	}
 	
+	public void Menu() {
+		System.out.println("\n=======================================================================");
+		System.out.print("1. INSERT\t");
+		System.out.print("2. DELETE\t");
+		System.out.print("3. SEARCH\t");
+		System.out.print("4. PRINT TREE\t");
+		System.out.println("5. QUIT");
+		System.out.println("=======================================================================");
+		System.out.print("Choose the action : ");
+	}
+	
 	public static void main(String[] args) {
 		BinarySearchTree bst = new BinarySearchTree();
+		Scanner sc = new Scanner(System.in);
 		
-		bst.insert(5);
-		bst.insert(8);
-		bst.insert(1);
-		bst.insert(6);
-		bst.insert(4);
-		bst.insert(9);
-		bst.insert(3);
-		bst.insert(2);
-		bst.insert(7);
+		int data = 0;
+		boolean result = false;
+		boolean flag = true;
 		
-		System.out.print("삽입 결과 : ");
-		bst.inorderTraverse(bst.root);
-		System.out.println();
+		while(flag) {		//반복
+			bst.Menu();		//메뉴 출력
+			int choice = sc.nextInt();
+			
+			switch(choice) {	//선택에 따른 함수 호출
+			case 1:			//삽입
+				System.out.println("Data that already exists will not be inserted.");
+				System.out.print("Data to insert(int) : ");
+				data = sc.nextInt();	//삽입할 데이터
+				
+				bst.insert(data);
+				
+				break;
+			case 2:			//삭제
+				System.out.print("Data to delete(int) : ");
+				data = sc.nextInt();	//삭제할 데이터
+				
+				result = bst.delete(data);	//삭제 진행 후 결과
+				if(result)				//result == true
+					System.out.println("   " + data + " has deleted.");
+				else					//result == false
+					System.out.println("   No such data.");
+				
+				break;
+			case 3:			//탐색
+				System.out.print("Data to search(int) : ");
+				data = sc.nextInt();	//탐색할 데이터
+				
+				result = bst.search(data);	//탐색 진행 후 결과
+				if(result)				//result == true
+					System.out.println("   " + data + " is in the tree.");
+				else					//result == false
+					System.out.println("   No such data.");
+				
+				break;
+			case 4:			//출력
+				System.out.println("1. inorder\t2. preorder\t3.postorder");
+				System.out.print("Choose the way to print : ");
+				int choice2 = sc.nextInt();	//출력 방식 선택
+				
+				if(choice2 == 1)		//inorder
+					bst.inorderTraverse(bst.root);
+				else if(choice2 == 2)	//preorder
+					bst.preorderTraverse(bst.root);
+				else if(choice2 == 3)	//postorder
+					bst.postorderTraverse(bst.root);
+				else					//1,2,3 이외의 선택
+					System.out.println("   Wrong choice. Choose from 1~3.");
+				
+				System.out.println();
+				break;
+			case 5:			//프로그램 종료
+				flag = false;
+				break;
+			default :		//1,2,3,4,5 이외의 선택
+				System.out.println("   Wrong choice. Choose from 1~5.");
+			}
+		}
 		
-		bst.delete(3);
-		System.out.print("3삭제 결과 : ");
-		bst.inorderTraverse(bst.root);
-		System.out.println();
-		
-		bst.delete(8);
-		System.out.print("8삭제 결과 : " );
-		bst.inorderTraverse(bst.root);
-		System.out.println();
-		
-		bst.delete(1);
-		System.out.print("1삭제 결과 : ");
-		bst.inorderTraverse(bst.root);
-		System.out.println();
-		
-		System.out.println("6탐색 결과 : " + bst.search(6));
-		
-		bst.delete(6);
-		System.out.print("6삭제 결과 : ");
-		bst.inorderTraverse(bst.root);
-		System.out.println();
-		
-		System.out.println("6탐색 결과 : " + bst.search(6));
+		System.out.println("\n===FINISH PROGRAM===");
 	}
 	
 	//삽입
@@ -246,6 +287,7 @@ public class BinarySearchTree {
 		return false;
 	}
 	
+	//출력
 	public void inorderTraverse(Node root) {		//오름차순으로 출력 가능
 		if(root == null)
 			return;
