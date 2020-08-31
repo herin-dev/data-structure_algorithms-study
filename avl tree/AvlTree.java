@@ -139,9 +139,9 @@ public class AvlTree {
 		} else if(data > node.getData()) {		//현재 노드보다 큰 값이면
 			node.setRight(insert(node.getRight(), data));
 			node = rebalance(node);
-		} else					//중복을 허용하지 않는다
-			return null;
+		}
 		
+		//이미 있는 데이터인 경우 아무 작업도 일어나지 않는다.
 		return node;
 	}
 	
