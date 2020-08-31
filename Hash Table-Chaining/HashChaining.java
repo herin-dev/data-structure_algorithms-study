@@ -1,5 +1,7 @@
 package examples;
 
+import java.util.Scanner;
+
 //Linked List
 
 public class HashChaining {
@@ -61,8 +63,70 @@ public class HashChaining {
 			MyTbl[i] = new Node();
 	}
 	
+	public void Menu() {
+		System.out.println("\n=======================================================================");
+		System.out.print("1. INSERT\t");
+		System.out.print("2. DELETE\t");
+		System.out.print("3. SEARCH\t");
+		System.out.print("4. PRINT TREE\t");
+		System.out.println("5. QUIT");
+		System.out.println("=======================================================================");
+		System.out.print("Choose the action : ");
+	}
+	
 	public static void main(String[] args) {
 		HashChaining hc = new HashChaining();
+		Scanner sc = new Scanner(System.in);
+		
+		int ssn = -1;
+		String name = null;
+		String addr = null;
+		int key = -1;
+		boolean result = false;
+		boolean flag = true;
+		
+		while(flag) {
+			hc.Menu();
+			int choice = sc.nextInt();
+			
+			switch(choice) {	//선택에 따른 함수 호출
+			case 1:			//삽입
+				System.out.println("Data that already exists will not be inserted.");
+				System.out.print("Birth(ex.990831) : ");
+				ssn = sc.nextInt();	//삽입할 데이터 이름
+				sc.nextLine();
+				System.out.print("Name : ");
+				name = sc.nextLine();	//삽입할 데이터 이름
+				System.out.print("Address : ");
+				addr = sc.nextLine();	//삽입할 데이터 이름
+				
+				hc.insert(ssn, name, addr);
+				
+				break;
+			case 2:			//삭제
+				System.out.print("Data to delete(ssn) : ");
+				key = sc.nextInt();	//삭제할 데이터
+				
+				result = hc.delete(key);	//삭제 진행 후 결과
+				break;
+			case 3:			//탐색
+				System.out.print("Data to search(ssn) : ");
+				key = sc.nextInt();	//탐색할 데이터
+				
+				hc.search(key);	//탐색 진행 후 결과
+				break;
+			case 4:			//출력
+				hc.print();
+				break;
+			case 5:			//프로그램 종료
+				flag = false;
+				break;
+			default :		//1,2,3,4,5 이외의 선택
+				System.out.println("   Wrong choice. Choose from 1~5.");
+			}
+		}
+		
+		System.out.println("\n===FINISH PROGRAM===");
 		
 		System.out.println("\tinsert Hong, Kim, Lee");
 		hc.insert(200216, "Hong", "Korea");
@@ -122,7 +186,7 @@ public class HashChaining {
 					Node delNode = current.getNext();	//지우고자 하는 노드
 					current.setNext(delNode.getNext());	//current.next = delNode.next (delNode를 지우고 이전 노드와 다음 노드를 연결)
 					
-					System.out.println("key: " + key + " deleted.");
+					System.out.println("key[" + key + "] deleted.");
 					return true;
 				}
 				
@@ -143,7 +207,7 @@ public class HashChaining {
 			System.out.print("Name: " + result.getName());
 			System.out.println(", Address: " + result.getAddr());
 		} else
-			System.out.println("No key(" + key + ")");
+			System.out.println("No key[" + key + "]");
 	}
 	
 	public Node check(int key) {		//존재 여부 확인 후, 해당 노드 반환
@@ -170,8 +234,11 @@ public class HashChaining {
 				Node current = MyTbl[i].getNext();
 				
 				while(current != null) {
-					System.out.print(current.getName() + ", ");
+					System.out.print(current.getName());
 					current = current.getNext();
+					
+					if(current != null)
+						System.out.print(", ");
 				}
 				System.out.println();
 			}
