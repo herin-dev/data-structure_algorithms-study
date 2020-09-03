@@ -144,6 +144,10 @@ public class SingleLinkedList {
 		} else {			//list가 안 비어있으면
 			head = head.getNext();	//head가 현재 head.next를 가르킨다
 			nodeNum--;
+
+			if(nodeNum == 0)		//삭제 후 노드가 0개면
+				tail = null;
+
 			return true;
 		}
 	}
