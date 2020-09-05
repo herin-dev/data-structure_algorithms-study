@@ -68,7 +68,7 @@ public class HashChaining {
 		System.out.print("1. INSERT\t");
 		System.out.print("2. DELETE\t");
 		System.out.print("3. SEARCH\t");
-		System.out.print("4. PRINT TREE\t");
+		System.out.print("4. PRINT\t");
 		System.out.println("5. QUIT");
 		System.out.println("=======================================================================");
 		System.out.print("Choose the action : ");
