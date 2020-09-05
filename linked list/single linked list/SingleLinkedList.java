@@ -1,5 +1,7 @@
 package examples;
 
+import java.util.Scanner;
+
 //앞에 삽입하는 LinkedList
 
 public class SingleLinkedList {
@@ -40,43 +42,118 @@ public class SingleLinkedList {
 		nodeNum = 0;
 	}
 	
+	public void Menu() {
+		System.out.println("\n=======================================================================");
+		System.out.print("1. INSERT\t");
+		System.out.print("2. DELETE\t");
+		System.out.print("3. SEARCH\t");
+		System.out.print("4. PRINT\t");
+		System.out.println("5. QUIT");
+		System.out.println("=======================================================================");
+		System.out.print("Choose the action : ");
+	}
+	
 	public static void main(String[] argc) {
 		SingleLinkedList list = new SingleLinkedList();
+		Scanner sc = new Scanner(System.in);
 		
-		System.out.print("[PRINT] ");
-		list.print();
+		int data = -1;
+		boolean flag = true;
+		int choice = 0;
+		int choice2 = 0;
+		int index = 0;
 		
-		System.out.print("[INSERT FRONT 2] ");
-		list.insertFront(2);
-		list.print();
+		while(flag) {
+			list.Menu();
+			choice = sc.nextInt();
+			
+			switch(choice) {
+			case 1: 		//삽입
+				System.out.println("1. FRONT\t2. MIDDLE\t3. LAST");
+				System.out.print("Add data to : ");
+				choice2 = sc.nextInt();
+				System.out.print("Data to insert : ");
+				data = sc.nextInt();
+				
+				if(choice2 == 1)
+					list.insertFront(data);
+				else if(choice2 == 2) {
+					System.out.print("Index to insert : ");
+					index = sc.nextInt();
+					list.insertMid(index, data);
+				} else if(choice2 == 3)
+					list.insertLast(data);
+				else
+					System.out.println("   Wrong choice. Choose from 1~3.");
+				
+				break;
+			case 2:			//삭제
+				System.out.println("1. FRONT\t2. MIDDLE");
+				System.out.print("delete data from : ");
+				choice2 = sc.nextInt();
+				
+				if(choice2 == 1)
+					list.deleteFront();
+				else if(choice2 == 2) {
+					System.out.print("Index to delete : ");
+					index = sc.nextInt();
+					list.deleteMid(index);
+				} else
+					System.out.println("   Wrong choice. Choose from 1~2.");
+				
+				break;
+			case 3:			//탐색
+				System.out.print("Data to search : ");
+				data = sc.nextInt();	//탐색할 데이터
+				
+				list.search(data);	//탐색 진행 후 결과
+				break;
+			case 4:			//출력
+				list.print();
+				break;
+			case 5:			//프로그램 종료
+				flag = false;
+				break;
+			default :		//1,2,3,4,5 이외의 선택
+				System.out.println("   Wrong choice. Choose from 1~5.");
+			}
+		}
 		
-		System.out.print("[INSERT FRONT 1] ");
-		list.insertFront(1);
-		list.print();
-		
-		System.out.print("[INSERT LAST 4] ");
-		list.insertLast(4);
-		list.print();
-		
-		System.out.print("[SEARCH 3] ");
-		list.search(3);
-		
-		System.out.print("[INSERT MID 3] ");
-		list.insertMid(3, 3);
-		list.print();
-		
-		System.out.print("[SEARCH 3] ");
-		list.search(3);
-		
-		System.out.print("[DELETE MID 4] ");
-		list.deleteMid(4);
-		
-		System.out.print("[DELETE FRONT] ");
-		list.deleteFront();
-		list.print();
-		
-		System.out.print("[DELETE MID 5] ");
-		list.deleteMid(5);
+		System.out.println("\n===FINISH PROGRAM===");
+//		System.out.print("[PRINT] ");
+//		list.print();
+//		
+//		System.out.print("[INSERT FRONT 2] ");
+//		list.insertFront(2);
+//		list.print();
+//		
+//		System.out.print("[INSERT FRONT 1] ");
+//		list.insertFront(1);
+//		list.print();
+//		
+//		System.out.print("[INSERT LAST 4] ");
+//		list.insertLast(4);
+//		list.print();
+//		
+//		System.out.print("[SEARCH 3] ");
+//		list.search(3);
+//		
+//		System.out.print("[INSERT MID 3] ");
+//		list.insertMid(3, 3);
+//		list.print();
+//		
+//		System.out.print("[SEARCH 3] ");
+//		list.search(3);
+//		
+//		System.out.print("[DELETE MID 4] ");
+//		list.deleteMid(4);
+//		
+//		System.out.print("[DELETE FRONT] ");
+//		list.deleteFront();
+//		list.print();
+//		
+//		System.out.print("[DELETE MID 5] ");
+//		list.deleteMid(5);
 	}
 	
 	//삽입
@@ -110,7 +187,7 @@ public class SingleLinkedList {
 			insertFront(data);
 		else {
 			if(index > nodeNum+1) {		//list의 노드 수보다 크면
-				System.out.println("Now we have " + nodeNum + " nodes.");
+				System.out.println("   Now we have " + nodeNum + " nodes.");
 				return;
 			}
 			
@@ -139,15 +216,15 @@ public class SingleLinkedList {
 	//삭제
 	public boolean deleteFront() {			//list의 첫 노드 삭제
 		if(head == null) {	//list가 비어있으면
-			System.out.println("No Data.");
+			System.out.println("   No Data.");
 			return false;
 		} else {			//list가 안 비어있으면
 			head = head.getNext();	//head가 현재 head.next를 가르킨다
 			nodeNum--;
-
+			
 			if(nodeNum == 0)		//삭제 후 노드가 0개면
 				tail = null;
-
+			
 			return true;
 		}
 	}
@@ -157,7 +234,7 @@ public class SingleLinkedList {
 			deleteFront();
 		else {
 			if(index > nodeNum) {		//list의 노드 수보다 크면
-				System.out.println("we have " + nodeNum + " nodes.");
+				System.out.println("   we have " + nodeNum + " nodes.");
 				return false;
 			}
 			
