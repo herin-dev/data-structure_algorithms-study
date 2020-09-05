@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class HashChaining {
 	public class Person {
-		private int ssn;		//»ı³â¿ùÀÏ, key
-		private String name;	//ÀÌ¸§
-		private String addr;	//ÁÖ¼Ò
+		private int ssn;		//ìƒë…„ì›”ì¼, key
+		private String name;	//ì´ë¦„
+		private String addr;	//ì£¼ì†Œ
 		
 		public Person(int ssn, String name, String addr) {
 			this.ssn = ssn;
@@ -46,15 +46,15 @@ public class HashChaining {
 		public void setNext(Node node) { this.next = node; }
 		public Node getNext() { return this.next; }
 		
-		//¹Ù·Î access °¡´ÉÇÏµµ·Ï
+		//ë°”ë¡œ access ê°€ëŠ¥í•˜ë„ë¡
 		public int getKey() { return this.key; }
 		public int getSSn() { return this.person.getSsn(); }
 		public String getName() { return this.person.getName(); }
 		public String getAddr() { return this.person.getAddr(); }
 	}
 	
-	private final static int MAX_TBL = 32;	//ÇØ½Ã Å×ÀÌºí Å©±â
-	private static Node[] MyTbl;			//ÇØ½Ã Å×ÀÌºí
+	private final static int MAX_TBL = 32;	//í•´ì‹œ í…Œì´ë¸” í¬ê¸°
+	private static Node[] MyTbl;			//í•´ì‹œ í…Œì´ë¸”
 	
 	public HashChaining() {				//init
 		MyTbl = new Node[MAX_TBL];
@@ -68,7 +68,7 @@ public class HashChaining {
 		System.out.print("1. INSERT\t");
 		System.out.print("2. DELETE\t");
 		System.out.print("3. SEARCH\t");
-		System.out.print("4. PRINT TREE\t");
+		System.out.print("4. PRINT\t");
 		System.out.println("5. QUIT");
 		System.out.println("=======================================================================");
 		System.out.print("Choose the action : ");
@@ -89,108 +89,91 @@ public class HashChaining {
 			hc.Menu();
 			int choice = sc.nextInt();
 			
-			switch(choice) {	//¼±ÅÃ¿¡ µû¸¥ ÇÔ¼ö È£Ãâ
-			case 1:			//»ğÀÔ
+			switch(choice) {	//ì„ íƒì— ë”°ë¥¸ í•¨ìˆ˜ í˜¸ì¶œ
+			case 1:			//ì‚½ì…
 				System.out.println("Data that already exists will not be inserted.");
 				System.out.print("Birth(ex.990831) : ");
-				ssn = sc.nextInt();	//»ğÀÔÇÒ µ¥ÀÌÅÍ ÀÌ¸§
+				ssn = sc.nextInt();	//ì‚½ì…í•  ë°ì´í„° ì´ë¦„
 				sc.nextLine();
 				System.out.print("Name : ");
-				name = sc.nextLine();	//»ğÀÔÇÒ µ¥ÀÌÅÍ ÀÌ¸§
+				name = sc.nextLine();	//ì‚½ì…í•  ë°ì´í„° ì´ë¦„
 				System.out.print("Address : ");
-				addr = sc.nextLine();	//»ğÀÔÇÒ µ¥ÀÌÅÍ ÀÌ¸§
+				addr = sc.nextLine();	//ì‚½ì…í•  ë°ì´í„° ì´ë¦„
 				
 				hc.insert(ssn, name, addr);
 				
 				break;
-			case 2:			//»èÁ¦
+			case 2:			//ì‚­ì œ
 				System.out.print("Data to delete(ssn) : ");
-				key = sc.nextInt();	//»èÁ¦ÇÒ µ¥ÀÌÅÍ
+				key = sc.nextInt();	//ì‚­ì œí•  ë°ì´í„°
 				
-				result = hc.delete(key);	//»èÁ¦ ÁøÇà ÈÄ °á°ú
+				result = hc.delete(key);	//ì‚­ì œ ì§„í–‰ í›„ ê²°ê³¼
 				break;
-			case 3:			//Å½»ö
+			case 3:			//íƒìƒ‰
 				System.out.print("Data to search(ssn) : ");
-				key = sc.nextInt();	//Å½»öÇÒ µ¥ÀÌÅÍ
+				key = sc.nextInt();	//íƒìƒ‰í•  ë°ì´í„°
 				
-				hc.search(key);	//Å½»ö ÁøÇà ÈÄ °á°ú
+				hc.search(key);	//íƒìƒ‰ ì§„í–‰ í›„ ê²°ê³¼
 				break;
-			case 4:			//Ãâ·Â
+			case 4:			//ì¶œë ¥
 				hc.print();
 				break;
-			case 5:			//ÇÁ·Î±×·¥ Á¾·á
+			case 5:			//í”„ë¡œê·¸ë¨ ì¢…ë£Œ
 				flag = false;
 				break;
-			default :		//1,2,3,4,5 ÀÌ¿ÜÀÇ ¼±ÅÃ
+			default :		//1,2,3,4,5 ì´ì™¸ì˜ ì„ íƒ
 				System.out.println("   Wrong choice. Choose from 1~5.");
 			}
 		}
 		
 		System.out.println("\n===FINISH PROGRAM===");
-		
-		System.out.println("\tinsert Hong, Kim, Lee");
-		hc.insert(200216, "Hong", "Korea");
-		hc.insert(940202, "Kim", "China");
-		hc.insert(951216, "Lee", "Korea");
-		
-		hc.print();
-		
-		System.out.println("\n\tsearch 200216");
-		hc.search(200216);
-		
-		System.out.println("\n\tdelete 951216");
-		hc.delete(951216);
-		hc.print();
-		
-		System.out.println("\n\tsearch 951216");
-		hc.delete(951216);
 	}
 	
-	//ÇØ½Ã ÇÔ¼ö
-	public int hashing(int key) {			//key°ªÀ¸·Î hash(index)°ªÀ» °è»ê
-		return key%100;						//»ıÀÏ ³¯Â¥
+	//í•´ì‹œ í•¨ìˆ˜
+	public int hashing(int key) {			//keyê°’ìœ¼ë¡œ hash(index)ê°’ì„ ê³„ì‚°
+		return key%100;						//ìƒì¼ ë‚ ì§œ
 	}
 	
-	//»ğÀÔ
+	//ì‚½ì…
 	public void insert(int ssn, String name, String addr) {
-		Person person = new Person(ssn, name, addr);	//Person ¸¸µé±â
+		Person person = new Person(ssn, name, addr);	//Person ë§Œë“¤ê¸°
 		int key = person.getSsn();					//ssn == key
-		int hash = hashing(person.getSsn());		//hash °è»ê (Å×ÀÌºíÀÇ index °ªÀÌ µÈ´Ù)
+		int hash = hashing(person.getSsn());		//hash ê³„ì‚° (í…Œì´ë¸”ì˜ index ê°’ì´ ëœë‹¤)
 		
-		if(check(key) != null) {			//key°¡ Áßº¹µÈ´Ù¸é
+		if(check(key) != null) {			//keyê°€ ì¤‘ë³µëœë‹¤ë©´
 			System.out.println("Already exist.");
 			return;
 		}
 		
-		Node newNode = new Node(person);		//³ëµå »ı¼º
-		Node current = MyTbl[hash];				//hash¿¡ ÇØ´çÇÏ´Â Å×ÀÌºí Ã¹ ³ëµå
+		Node newNode = new Node(person);		//ë…¸ë“œ ìƒì„±
+		Node current = MyTbl[hash];				//hashì— í•´ë‹¹í•˜ëŠ” í…Œì´ë¸” ì²« ë…¸ë“œ
 		
-		if(current.getNext() == null)			//Å×ÀÌºíÀÌ ºñ¾îÀÖ´Ù == ÀÌ hash°ª¿¡ node°¡ ¾ø´Ù
-			MyTbl[hash].setNext(newNode);		//Å×ÀÌºíÀÇ Ã¹ node
-		else {									//listÀÇ Á¦ÀÏ ¾Õ¿¡ Ãß°¡
+		if(current.getNext() == null)			//í…Œì´ë¸”ì´ ë¹„ì–´ìˆë‹¤ == ì´ hashê°’ì— nodeê°€ ì—†ë‹¤
+			MyTbl[hash].setNext(newNode);		//í…Œì´ë¸”ì˜ ì²« node
+		else {									//listì˜ ì œì¼ ì•ì— ì¶”ê°€
 			newNode.setNext(current.getNext());
 			current.setNext(newNode);
 		}	
 	}
 	
-	//»èÁ¦
+	//ì‚­ì œ
 	public boolean delete(int key) {
-		Node current = MyTbl[hashing(key)];		//MyTbl[hash] Ã¹¹øÂ° NodeºÎÅÍ ½ÃÀÛ
+		Node current = MyTbl[hashing(key)];		//MyTbl[hash] ì²«ë²ˆì§¸ Nodeë¶€í„° ì‹œì‘
 		
-		if(current.getNext() != null ) {		//ÇØ´ç hash¿¡ ³ëµå°¡ ÀÖÀ» ¶§
-			while(current != null) {				//nullÀÌ ¾Æ´Ò ¶§±îÁö == listÀÇ ³¡±îÁö
-				if(current.getNext() == null)		//´ÙÀ½ ³ëµå°¡ null == ¸¶Áö¸· ³ëµå, ´õ Ã£À» ÇÊ¿ä ¾ø´Ù
+		if(current.getNext() != null ) {		//í•´ë‹¹ hashì— ë…¸ë“œê°€ ìˆì„ ë•Œ
+			while(current != null) {				//nullì´ ì•„ë‹ ë•Œê¹Œì§€ == listì˜ ëê¹Œì§€
+				if(current.getNext() == null)		//ë‹¤ìŒ ë…¸ë“œê°€ null == ë§ˆì§€ë§‰ ë…¸ë“œ, ë” ì°¾ì„ í•„ìš” ì—†ë‹¤
 					break;
 				
-				if(current.getNext().getKey() == key) {	//current.next == key (´ÙÀ½ node°¡ Áö¿ì°íÀÚ ÇÏ´Â ³ëµåÀÏ¶§)
-					Node delNode = current.getNext();	//Áö¿ì°íÀÚ ÇÏ´Â ³ëµå
-					current.setNext(delNode.getNext());	//current.next = delNode.next (delNode¸¦ Áö¿ì°í ÀÌÀü ³ëµå¿Í ´ÙÀ½ ³ëµå¸¦ ¿¬°á)
+				if(current.getNext().getKey() == key) {	//current.next == key (ë‹¤ìŒ nodeê°€ ì§€ìš°ê³ ì í•˜ëŠ” ë…¸ë“œì¼ë•Œ)
+					Node delNode = current.getNext();	//ì§€ìš°ê³ ì í•˜ëŠ” ë…¸ë“œ
+					current.setNext(delNode.getNext());	//current.next = delNode.next (delNodeë¥¼ ì§€ìš°ê³  ì´ì „ ë…¸ë“œì™€ ë‹¤ìŒ ë…¸ë“œë¥¼ ì—°ê²°)
 					
 					System.out.println("key[" + key + "] deleted.");
 					return true;
 				}
 				
-				current = current.getNext();		//´ÙÀ½ ³ëµå·Î
+				current = current.getNext();		//ë‹¤ìŒ ë…¸ë“œë¡œ
 			}
 		}
 			
@@ -198,11 +181,11 @@ public class HashChaining {
 		return false;
 	}
 	
-	//Å½»ö
+	//íƒìƒ‰
 	public void search(int key) {
-		Node result = check(key);		//Á¸Àç ¿©ºÎ È®ÀÎ
+		Node result = check(key);		//ì¡´ì¬ ì—¬ë¶€ í™•ì¸
 		
-		if(result != null) {			//nullÀÌ ¾Æ´Ï¸é Á¤º¸ Ãâ·Â
+		if(result != null) {			//nullì´ ì•„ë‹ˆë©´ ì •ë³´ ì¶œë ¥
 			System.out.print("[" + key + "'s info] ");
 			System.out.print("Name: " + result.getName());
 			System.out.println(", Address: " + result.getAddr());
@@ -210,10 +193,10 @@ public class HashChaining {
 			System.out.println("No key[" + key + "]");
 	}
 	
-	public Node check(int key) {		//Á¸Àç ¿©ºÎ È®ÀÎ ÈÄ, ÇØ´ç ³ëµå ¹İÈ¯
+	public Node check(int key) {		//ì¡´ì¬ ì—¬ë¶€ í™•ì¸ í›„, í•´ë‹¹ ë…¸ë“œ ë°˜í™˜
 		int hash = hashing(key);
 		
-		Node current = MyTbl[hash].getNext();	//ÇØ´ç hash Å×ÀÌºí 
+		Node current = MyTbl[hash].getNext();	//í•´ë‹¹ hash í…Œì´ë¸” 
 		
 		while(current != null ) {
 			if(current.getKey() == key)
@@ -225,7 +208,7 @@ public class HashChaining {
 		return null;
 	}
 	
-	//Ãâ·Â
+	//ì¶œë ¥
 	public void print() {
 		for(int i=0; i<MAX_TBL; i++) {
 			if(MyTbl[i].getNext() != null) {
