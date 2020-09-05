@@ -120,40 +120,6 @@ public class SingleLinkedList {
 		}
 		
 		System.out.println("\n===FINISH PROGRAM===");
-//		System.out.print("[PRINT] ");
-//		list.print();
-//		
-//		System.out.print("[INSERT FRONT 2] ");
-//		list.insertFront(2);
-//		list.print();
-//		
-//		System.out.print("[INSERT FRONT 1] ");
-//		list.insertFront(1);
-//		list.print();
-//		
-//		System.out.print("[INSERT LAST 4] ");
-//		list.insertLast(4);
-//		list.print();
-//		
-//		System.out.print("[SEARCH 3] ");
-//		list.search(3);
-//		
-//		System.out.print("[INSERT MID 3] ");
-//		list.insertMid(3, 3);
-//		list.print();
-//		
-//		System.out.print("[SEARCH 3] ");
-//		list.search(3);
-//		
-//		System.out.print("[DELETE MID 4] ");
-//		list.deleteMid(4);
-//		
-//		System.out.print("[DELETE FRONT] ");
-//		list.deleteFront();
-//		list.print();
-//		
-//		System.out.print("[DELETE MID 5] ");
-//		list.deleteMid(5);
 	}
 	
 	//»ðÀÔ
