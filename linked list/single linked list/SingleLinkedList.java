@@ -2,8 +2,6 @@ package examples;
 
 import java.util.Scanner;
 
-//앞에 삽입하는 LinkedList
-
 public class SingleLinkedList {
 	class Node {
 		private int data;

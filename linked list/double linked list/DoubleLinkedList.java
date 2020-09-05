@@ -2,8 +2,6 @@ package examples;
 
 import java.util.Scanner;
 
-//앞에 삽입하는 LinkedList
-
 public class DoubleLinkedList {
 	class Node {
 		private int data;
